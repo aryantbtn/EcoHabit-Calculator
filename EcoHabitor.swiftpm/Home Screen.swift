@@ -32,21 +32,9 @@ struct HomeScreen: View {
     // State variables for user inputs
     @State private var wakeUpEarly: Bool = false
     @State private var waterIntake: Double = 0.0
-    @State private var stepsWalked: Int = 0
-    @State private var publicTransport: Bool = false
-    @State private var singleUsePlasticAvoided: Bool = false
-    @State private var electricitySaved: Double = 0.0 // in kWh
-    @State private var bottlesRecycled: Int = 0
-    @State private var reducedACUsage: Bool = false
-    @State private var acHoursReduced: Int = 0 // Hours AC was reduced
-    @State private var isVegan: Bool = false
-    @State private var vegMeals: Int = 0
-    @State private var milesAvoided: Int = 0
-    @State private var devicesTurnedOff: Int = 0
-    @State private var showerTimeReduced: Int = 0
-    @State private var reusableItems: Int = 0
-    @State private var avoidedCar: Bool = false
+    @State private var stepsWalkedToday: Int = 0
     
+    @State private var avoidedCar: Bool = false
     @State private var transportMode: String = "Public Transport"
     let transportOptions = [
         "bus.fill",       // Public Transport
@@ -54,11 +42,28 @@ struct HomeScreen: View {
         "bicycle",        // Cycle
         "figure.walk"     // Walking
     ]
-    
+    @State private var publicTransport: Bool = false
     @State private var cycleTime: Int = 0
     @State private var cycleDistance: Double = 0.0
     @State private var walkTime: Int = 0
     @State private var stepsTaken: Int = 0
+    
+    @State private var singleUsePlasticAvoided: Bool = false
+    @State private var bottlesRecycled: Int = 0
+    @State private var reusableItems: Int = 0
+    
+    @State private var isSmoker: Bool = false
+    @State private var cigarettesSmoked: Int = 0
+    
+    @State private var isVegan: Bool = false
+    @State private var vegMeals: Int = 0
+    @State private var showerTimeReduced: Int = 0
+    @State private var electricitySaved: Double = 0.0 // in kWh
+    
+    @State private var devicesTurnedOff: Int = 0
+    @State private var reducedACUsage: Bool = false
+    @State private var acHoursReduced: Int = 0 // Hours AC was reduced
+
 
     // State variable for carbon reduction result
     @State private var carbonReduction: Double = 0.0
@@ -98,6 +103,19 @@ struct HomeScreen: View {
                         
                         Slider(value: $waterIntake, in: 0...5, step: 0.1)
                             .accentColor(.green)
+                    }
+                    .padding()
+                    .background(Color.green.opacity(0.1))
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Steps Walked: \(stepsWalkedToday)")
+                            .font(.headline)
+
+                        Stepper(value: $stepsWalkedToday, in: 0...30000, step: 1000) {
+                            Text("Steps: \(stepsWalkedToday)")
+                        }
                     }
                     .padding()
                     .background(Color.green.opacity(0.1))
@@ -182,6 +200,7 @@ struct HomeScreen: View {
                     // MARK:- Avoid Single-Use Plastic Toggle
                     Toggle("Did you avoid single-use plastics today?", isOn: $singleUsePlasticAvoided)
                         .padding()
+                        .font(.headline)
                         .background(Color.green.opacity(0.1))
                         .cornerRadius(10)
                         .padding(.horizontal)
@@ -214,12 +233,40 @@ struct HomeScreen: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
                     
-                    //
-                    
+                    // Smoking Question
+                    VStack(alignment: .leading) {
+                        Text("Do you smoke?")
+                            .font(.headline)
+                        
+                        Picker("Do you smoke?", selection: $isSmoker) {
+                            Text("No").tag(false)
+                            Text("Yes").tag(true)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+
+                        if isSmoker {
+                            VStack(alignment: .leading) {
+                                Text("How many cigarettes did you smoke today? \(cigarettesSmoked)")
+                                    .font(.headline)
+
+                                Stepper(value: $cigarettesSmoked, in: 0...40, step: 1) {
+                                    Text("\(cigarettesSmoked) cigarettes")
+                                }
+                            }
+                            .padding()
+                            .background(Color.red.opacity(0.1))
+                            .cornerRadius(10)
+                        }
+                    }
+                    .padding()
+                    .background(Color.green.opacity(0.1))
+                    .cornerRadius(10)
+                    .padding(.horizontal)
                     
                     // Vegan Toggle
                     Toggle("Are you vegan?", isOn: $isVegan)
                         .padding()
+                        .font(.headline)
                         .background(Color.green.opacity(0.1))
                         .cornerRadius(10)
                         .padding(.horizontal)
@@ -271,6 +318,7 @@ struct HomeScreen: View {
                     VStack(alignment: .leading) {
                         Toggle("Did you reduce AC usage today?", isOn: $reducedACUsage)
                             .padding()
+                            .font(.headline)
                             .background(Color.green.opacity(0.1))
                             .cornerRadius(10)
                         if reducedACUsage {
@@ -344,7 +392,8 @@ struct HomeScreen: View {
             reduction += 0.5 // Example: Waking up early saves 0.5 kg CO₂
         }
 
-        reduction += waterIntake * 0.2 // Example: Every liter of water saved = 0.2 kg CO₂
+        reduction += waterIntake * 0.2 // 1L of water saved = 0.2 kg CO₂ reduction
+        reduction += Double(stepsWalkedToday / 1000) * 0.1 // 1000 steps walked = 0.1 kg CO₂ saved
         
         if avoidedCar {
             switch transportMode {
@@ -369,8 +418,6 @@ struct HomeScreen: View {
             }
         }
         
-        reduction += Double(stepsWalked / 1000) * 0.1 // Example: Every 1000 steps = 0.1 kg CO₂
-        
         if publicTransport {
             reduction += 2.0 // Example: Using public transport saves 2.0 kg CO₂
         }
@@ -391,9 +438,7 @@ struct HomeScreen: View {
             reduction += 0.5 // Example: Waking up early saves 0.5 kg CO₂ by reducing electricity use
         }
 
-        reduction += waterIntake * 0.2 // 1L of water saved = 0.2 kg CO₂ reduction
-        reduction += Double(stepsWalked / 1000) * 0.1 // 1000 steps walked = 0.1 kg CO₂ saved
-                
+               
         if publicTransport {
             reduction += 2.0 // Using public transport saves 2.0 kg CO₂ vs. driving
         }
@@ -407,7 +452,17 @@ struct HomeScreen: View {
         if reducedACUsage {
             reduction += Double(acHoursReduced) * 0.8 // 1 hour of AC reduction saves 0.8 kg CO₂
         }
-
+        
+        // Smoking Impact Calculation
+        if isSmoker {
+            let reductionPerCigarette = 0.02 // Example: Each cigarette avoided saves 0.02 kg CO₂
+            let maxDailySmokes = 20 // Assume max smoking habit is 20 cigarettes per day
+            let avoidedCigarettes = maxDailySmokes - cigarettesSmoked
+            if avoidedCigarettes > 0 {
+                reduction += Double(avoidedCigarettes) * reductionPerCigarette
+            }
+        }
+        
         if isVegan {
             reduction += Double(vegMeals) * 2.0 // 1 vegetarian meal instead of meat = 2 kg CO₂ saved
         }
