@@ -13,13 +13,18 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             HomeScreen(historyViewModel: historyViewModel).tabItem {
-                    Label("Home", systemImage: "house.fill")
-                }
+                Label("Home", systemImage: "house.fill")
+            }
+            
+            InfoView()
+                .tabItem {
+                    Label("Info", systemImage: "info.circle.fill")
+            }
             
             HistoryScreen(historyViewModel: historyViewModel)
                 .tabItem {
                     Label("History", systemImage: "clock.fill")
-                }
+            }
         }
     }
 }
@@ -57,13 +62,14 @@ struct HomeScreen: View {
     
     @State private var isVegan: Bool = false
     @State private var vegMeals: Int = 0
+    @State private var nonVegMeals: Int = 0
     @State private var showerTimeReduced: Int = 0
-    @State private var electricitySaved: Double = 0.0 // in kWh
+    @State private var electricitySaved: Double = 0.0
     
     @State private var devicesTurnedOff: Int = 0
     @State private var reducedACUsage: Bool = false
     @State private var acHoursReduced: Int = 0 // Hours AC was reduced
-
+    
 
     // State variable for carbon reduction result
     @State private var carbonReduction: Double = 0.0
@@ -73,7 +79,7 @@ struct HomeScreen: View {
     @State private var isInfoPresented = false
     
     var body: some View {
-        NavigationView {
+        ZStack{
             ScrollView {
                 VStack(spacing: 30) {
                     Text("Daily Habit Tracker")
@@ -112,7 +118,7 @@ struct HomeScreen: View {
                     VStack(alignment: .leading) {
                         Text("Steps Walked: \(stepsWalkedToday)")
                             .font(.headline)
-
+                        
                         Stepper(value: $stepsWalkedToday, in: 0...30000, step: 1000) {
                             Text("Steps: \(stepsWalkedToday)")
                         }
@@ -142,7 +148,7 @@ struct HomeScreen: View {
                                 }
                             }
                             .pickerStyle(SegmentedPickerStyle())
-
+                            
                         }
                         .padding()
                         .background(Color.green.opacity(0.1))
@@ -210,9 +216,8 @@ struct HomeScreen: View {
                         Text("Bottles Recycled Today: \(bottlesRecycled)")
                             .font(.headline)
                         
-                        Stepper(value: $bottlesRecycled, in: 0...100, step: 1) {
-                            Text("Bottles Count: \(bottlesRecycled)")
-                        }
+                        Stepper("", value: $bottlesRecycled, in: 0...100)
+                        
                     }
                     .padding()
                     .background(Color.green.opacity(0.1))
@@ -243,12 +248,12 @@ struct HomeScreen: View {
                             Text("Yes").tag(true)
                         }
                         .pickerStyle(SegmentedPickerStyle())
-
+                        
                         if isSmoker {
                             VStack(alignment: .leading) {
                                 Text("How many cigarettes did you smoke today? \(cigarettesSmoked)")
                                     .font(.headline)
-
+                                
                                 Stepper(value: $cigarettesSmoked, in: 0...40, step: 1) {
                                     Text("\(cigarettesSmoked) cigarettes")
                                 }
@@ -265,12 +270,7 @@ struct HomeScreen: View {
                     
                     // Vegan Toggle
                     Toggle("Are you vegan?", isOn: $isVegan)
-                        .padding()
-                        .font(.headline)
-                        .background(Color.green.opacity(0.1))
-                        .cornerRadius(10)
-                        .padding(.horizontal)
-
+                    
                     // Vegetarian Meals (Enabled only if Vegan)
                     if isVegan {
                         VStack(alignment: .leading) {
@@ -314,7 +314,7 @@ struct HomeScreen: View {
                     .background(Color.green.opacity(0.1))
                     .cornerRadius(10)
                     .padding(.horizontal)
-
+                    
                     VStack(alignment: .leading) {
                         Toggle("Did you reduce AC usage today?", isOn: $reducedACUsage)
                             .padding()
@@ -352,6 +352,7 @@ struct HomeScreen: View {
                             .shadow(radius: 5)
                     }
                     .padding(.horizontal)
+                    //                    .disabled(isInputValid)
                     
                     // Result Display
                     Text("Your Total Carbon Reduction:")
@@ -379,8 +380,11 @@ struct HomeScreen: View {
                 .sheet(isPresented: $showInfoModal) {
                     InfoView()
                 }
+                
+                .navigationTitle("Home Screen")
             }
         }
+        .navigationBarHidden(true)
     }
 
     // Function to calculate carbon reduction

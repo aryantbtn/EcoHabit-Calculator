@@ -17,6 +17,7 @@ struct HistoryScreen: View {
             List {
                 ForEach(groupedHistory().sorted(by: { $0.key > $1.key }), id: \.key) { (date, items) in // <-- Fix here
                     Section(header: Text(formatDate(date))) {
+                        
                         ForEach(items) { item in
                             VStack(alignment: .leading) {
                                 Text("Carbon Reduction: \(String(format: "%.2f", item.carbonReduction)) kg CO₂")
@@ -31,6 +32,7 @@ struct HistoryScreen: View {
             }
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
         }
     }
 

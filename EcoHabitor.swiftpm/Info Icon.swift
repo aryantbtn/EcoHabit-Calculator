@@ -32,7 +32,7 @@ struct InfoView: View {
                     description: """
                                     The EcoHabit Calculator helps you track your daily activities and calculate the reduction in carbon emissions. Simple actions like waking up early, reducing water and electricity consumption, or avoiding single-use plastics can contribute to a greener planet.
                                     """,
-                    backgroundColor: Color.green.opacity(0.2)
+                    backgroundColor: Color.mint.opacity(0.2)
                 )
 
                 // Card 2: Transportation Impact
@@ -47,7 +47,7 @@ struct InfoView: View {
                                     - **Cycling**: Saves **411 g CO₂ per mile**.
                                     - **Walking**: If you walk **30 minutes**, you save the equivalent of **X kg CO₂**.
                                     """,
-                    backgroundColor: Color.blue.opacity(0.2)
+                    backgroundColor: Color.mint.opacity(0.2)
                 )
 
                 // Card 3: Smoking Awareness
@@ -63,7 +63,7 @@ struct InfoView: View {
 
                                     Try reducing your cigarette intake daily and track how much CO₂ you can save while improving your well-being!
                                     """,
-                    backgroundColor: Color.red.opacity(0.2)
+                    backgroundColor: Color.mint.opacity(0.2)
                 )
 
                 // Card 4: Energy Conservation
@@ -77,7 +77,7 @@ struct InfoView: View {
                                     - **Reducing AC usage** by 1 hour can save **0.8 kg CO₂**.
                                     - **Turning off unused devices** significantly lowers energy waste.
                                     """,
-                    backgroundColor: Color.yellow.opacity(0.2)
+                    backgroundColor: Color.mint.opacity(0.2)
                 )
 
                 // Card 5: Sustainable Eating
@@ -91,7 +91,7 @@ struct InfoView: View {
                                     - **Choosing a vegetarian meal** reduces emissions by **up to 80%**.
                                     - **Avoiding single-use plastics** reduces waste and cuts down emissions.
                                     """,
-                    backgroundColor: Color.green.opacity(0.2)
+                    backgroundColor: Color.mint.opacity(0.2)
                 )
 
                 // Card 6: Water Conservation
@@ -105,7 +105,7 @@ struct InfoView: View {
                                     - Recycling one bottle saves about 0.05 kg of CO₂.
                                     - Avoiding 1 hour of air conditioning usage can save up to 0.8 kg of CO₂.
                                     """,
-                    backgroundColor: Color.blue.opacity(0.2)
+                    backgroundColor: Color.mint.opacity(0.2)
                 )
 
                 // Card 7: Teamwork in Sustainability
@@ -116,7 +116,7 @@ struct InfoView: View {
                     description: """
                                     Together, these small changes can lead to a big impact. Track your habits daily and contribute to making the world a better place for everyone. Let’s take a step forward toward sustainability!
                                     """,
-                    backgroundColor: Color.orange.opacity(0.2)
+                    backgroundColor: Color.mint.opacity(0.2)
                 )
 
                 // Close Button

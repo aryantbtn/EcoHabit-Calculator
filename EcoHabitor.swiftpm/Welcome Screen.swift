@@ -64,7 +64,10 @@ struct WelcomeScreen: View {
                  */
                 
             }
-            .background(NavigationLink("", destination: MainTabView(), isActive: $navigateToMainTabView).hidden())
+            .navigationBarBackButtonHidden(true)
+            .navigationDestination(isPresented: $navigateToMainTabView) {
+                MainTabView()
+            }
         }
     }
 }
