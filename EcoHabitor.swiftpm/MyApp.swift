@@ -5,8 +5,7 @@ struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             WelcomeScreen()
-            
-//            InfoView()
+                .navigationBarBackButtonHidden(true)
         }
     }
 }

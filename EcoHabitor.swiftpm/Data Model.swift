@@ -19,4 +19,16 @@ class HistoryViewModel: ObservableObject {
         let newItem = HistoryItem(date: Date(), carbonReduction: carbonReduction)
         historyItems.append(newItem)
     }
+    
+    func deleteItems(at offsets: IndexSet, in items: [HistoryItem]) {
+        let itemsToDelete = offsets.map { items[$0] }
+        historyItems.removeAll(where: { item in
+            itemsToDelete.contains(where: { $0.id == item.id })
+        })
+    }
+    
+    func deleteAllItems() {
+        historyItems.removeAll()
+    }
+    
 }
