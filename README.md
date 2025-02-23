@@ -1,2 +1,9 @@
-# EcoHabit-Tracker
-It will calculate the aspected carbon you saved from being emitted based on your daily input data.
+# Eco-Habitor Calculator
+
+EcoHabit Tracker calculates Carbon Emission Reduction saved by them by asking users simple questions about their daily habits activity and encourage them to reduce carbon emissions, help to prevent increased global warming and contributes to safer environment.
+
+
+## Demo
+See the app demo by clicking the link
+
+https://drive.google.com/file/d/1YrqH7pd_pNZ6Z1EBm2_b_0MjTP5W9pbP/view?usp=share_link
