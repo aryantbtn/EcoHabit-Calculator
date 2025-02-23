@@ -233,8 +233,8 @@ struct HomeScreen: View {
                         iconColor: .blue,
                         title: "Bottles Recycled Today",
                         value: $bottles_Recycled,
-                        range: 1000...20000,
-                        step: 1000
+                        range: 1...100,
+                        step: 1
                     )
                     
                 
@@ -244,7 +244,7 @@ struct HomeScreen: View {
                         iconColor: .green,
                         title: "Reusable Items Used",
                         value: $reusable_Items,
-                        range: 0...10,
+                        range: 0...20,
                         step: 1
                     )
                     
