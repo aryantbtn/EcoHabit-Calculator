@@ -43,14 +43,14 @@ struct CustomStepperView: View {
                 Spacer()
                 Button(action: { if value > range.lowerBound { value -= step } }) {
                     Image(systemName: "minus.circle.fill")
-                        .font(.title2)
+                        .font(.title)
                         .foregroundColor(.green)
                 }
                 .disabled(value <= range.lowerBound)
                 
                 Button(action: { if value < range.upperBound { value += step } }) {
                     Image(systemName: "plus.circle.fill")
-                        .font(.title2)
+                        .font(.title)
                         .foregroundColor(.green)
                 }
                 .disabled(value >= range.upperBound)
