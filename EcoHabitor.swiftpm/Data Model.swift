@@ -5,6 +5,7 @@
 //  Created by ARYAN SINGHAL on 12/02/25.
 //
 
+
 import Foundation
 struct HistoryItem: Identifiable {
     let id = UUID()
@@ -13,6 +14,7 @@ struct HistoryItem: Identifiable {
 }
 
 class HistoryViewModel: ObservableObject {
+    
     @Published var historyItems: [HistoryItem] = []
     
     func addHistoryItem(carbonReduction: Double) {
@@ -20,15 +22,9 @@ class HistoryViewModel: ObservableObject {
         historyItems.append(newItem)
     }
     
-    func deleteItems(at offsets: IndexSet, in items: [HistoryItem]) {
-        let itemsToDelete = offsets.map { items[$0] }
-        historyItems.removeAll(where: { item in
-            itemsToDelete.contains(where: { $0.id == item.id })
-        })
-    }
-    
     func deleteAllItems() {
         historyItems.removeAll()
     }
+    
     
 }

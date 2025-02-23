@@ -19,8 +19,8 @@ let package = Package(
             bundleIdentifier: "swift-Student-challeneger.EcoHabitor",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .bandage),
-            accentColor: .presetColor(.mint),
+            appIcon: .placeholder(icon: .leaf),
+            accentColor: .presetColor(.green),
             supportedDeviceFamilies: [
                 .pad,
                 .phone
