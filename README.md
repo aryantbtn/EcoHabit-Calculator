@@ -6,4 +6,4 @@ EcoHabit Tracker calculates Carbon Emission Reduction saved by them by asking us
 ## Demo
 See the app demo by clicking the link
 
-[https://drive.google.com/file/d/1DOF-5K99JAqiexoEElmThJ2pWm9LiihC/view?usp=drivesdk]
+https://drive.google.com/file/d/1DOF-5K99JAqiexoEElmThJ2pWm9LiihC/view?usp=drivesdk
